@@ -1,3 +1,5 @@
+import random
+
 class Graph:
     """
     stores adjacency list (hash) :
@@ -6,6 +8,9 @@ class Graph:
     """
     def __init__(self, adjacency_list):
         self.adjacency_list = adjacency_list
+
+    def __init__(self):
+        self.adjacency_list = {}
 
     def vertice_count(self):
         """
@@ -46,12 +51,31 @@ class Graph:
         pass
 
     @staticmethod
-    def edgar_gilbert_graph():
+    def edgar_gilbert_graph(vertice_count):
         """
         TODO
         creates a random graph, as proposed by Edgar Gilbert
+        An edge between each vertice is created with 1/2 probability
+        The number of vertices is fixed
+
+        Exceptions: vertice count <= 0
         """
-        pass
+
+        if vertice_count <= 0:
+            return Graph()
+
+        vertices = [i for i in range(vertice_count)]
+        graph = Graph()
+        adjacency_list = {}
+        
+        for vertice in range(vertice_count):
+            other_vertices = range(vertice_count)
+            other_vertices.pop(vertice)
+            adjacency_list[vertice] = [i for i in other_vertices if 0.5 < random.random()]
+        
+        graph.adjacency_list = adjacency_list
+
+        return graph
     
     @staticmethod
     def barabasi_albert_graph():
