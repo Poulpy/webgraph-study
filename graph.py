@@ -9,9 +9,6 @@ class Graph:
     def __init__(self, adjacency_list):
         self.adjacency_list = adjacency_list
 
-    def __init__(self):
-        self.adjacency_list = {}
-
     def vertice_count(self):
         """
         TODO
@@ -64,16 +61,15 @@ class Graph:
         if vertice_count <= 0:
             return Graph()
 
-        vertices = [i for i in range(vertice_count)]
-        graph = Graph()
         adjacency_list = {}
+        edge_appearance_probability = 0.5
         
         for vertice in range(vertice_count):
             other_vertices = range(vertice_count)
             other_vertices.pop(vertice)
-            adjacency_list[vertice] = [i for i in other_vertices if 0.5 < random.random()]
+            adjacency_list[vertice] = [i for i in other_vertices if edge_appearance_probability < random.random()]
         
-        graph.adjacency_list = adjacency_list
+        graph = Graph(adjacency_list)
 
         return graph
     
