@@ -6,7 +6,7 @@ class Graph:
     vertice : {vertice, vertice}, etc.
     For different implementations, see the wiki article on adjacency lists
     """
-    def __init__(self, adjacency_list):
+    def __init__(self, adjacency_list= {}):
         self.adjacency_list = adjacency_list
 
     def vertice_count(self):
@@ -74,8 +74,12 @@ class Graph:
     def barabasi_albert_graph(m):
         """
         creates a barabasi-albert graph
+
+        Exception: m <= 0
         """
-        adjacency_list = {}
+        if m <= 0:
+            return Graph()
+
         adjacency_list = {0: [1,2],
                           1: [0,2],
                           2: [0,1]}
