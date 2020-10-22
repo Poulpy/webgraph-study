@@ -62,14 +62,14 @@ class Graph:
 
         adjacency_list = {}
         edge_appearance_probability = 0.5
-        
+
         for vertice in range(vertice_count):
             other_vertices = range(vertice_count)
             other_vertices.pop(vertice)
             adjacency_list[vertice] = [i for i in other_vertices if edge_appearance_probability < random.random()]
-        
+
         return Graph(adjacency_list)
-    
+
     @staticmethod
     def barabasi_albert_graph(m):
         """
@@ -113,14 +113,14 @@ class Graph:
 
         Exception: file or path incorrect
         """
-        file = open(filepath)  
+        file = open(filepath)
         adjacency_list = {}
-    
-        # Reading from file  
+
+        # Reading from file
         for line in file.readlines():
             vertices = line.rstrip().split(',')
             adjacency_list[vertices[0]] = vertices[1:]
-          
-        # closing the file 
-        file.close() 
+
+        # closing the file
+        file.close()
         return Graph(adjacency_list)
