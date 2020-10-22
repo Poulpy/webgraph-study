@@ -11,15 +11,24 @@ class Graph:
 
     def vertice_count(self):
         """
-        TODO
+        Returns the number of vertices
         """
-        pass
+        return len(self.adjacency_list.keys())
 
     def edge_count(self):
         """
-        TODO
+        Returns the number of edges
         """
-        pass
+        total = 0
+        vertices_known = []
+        for k, v in self.adjacency_list.items():
+            for vertice in vertices_known:
+                if vertice in v:
+                    v.remove(vertice)
+
+            total += len(v)
+            vertices_known.append(k)
+        return total
 
     def maximum_degree(self):
         """

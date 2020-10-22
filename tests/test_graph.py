@@ -39,5 +39,14 @@ class TestGraph(unittest.TestCase):
         adjacency_list_should_be = {'0': ['1', '2']}
         self.assertEqual(adjacency_list_should_be, graph.adjacency_list)
 
+    def test_edge_count(self):
+        adlist = {0: [1,3], 1: [0], 3: [0]}
+        graph = Graph(adlist)
+        self.assertEqual(graph.edge_count(), 2)
+        adlist = {0: [1, 3, 56], 1: [0], 3: [0, 56], 56: [0, 3]}
+        graph = Graph(adlist)
+        self.assertEqual(graph.edge_count(), 4)
+
+
 if  __name__ == '__main__':
     unittest.main()
