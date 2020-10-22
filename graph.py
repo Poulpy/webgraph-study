@@ -50,7 +50,6 @@ class Graph:
     @staticmethod
     def edgar_gilbert_graph(vertice_count):
         """
-        TODO
         creates a random graph, as proposed by Edgar Gilbert
         An edge between each vertice is created with 1/2 probability
         The number of vertices is fixed
@@ -69,17 +68,31 @@ class Graph:
             other_vertices.pop(vertice)
             adjacency_list[vertice] = [i for i in other_vertices if edge_appearance_probability < random.random()]
         
-        graph = Graph(adjacency_list)
-
-        return graph
+        return Graph(adjacency_list)
     
     @staticmethod
-    def barabasi_albert_graph():
+    def barabasi_albert_graph(m):
         """
-        TODO
         creates a barabasi-albert graph
         """
-        pass
+        adjacency_list = {}
+        adjacency_list = {0: [1,2],
+                          1: [0,2],
+                          2: [0,1]}
+
+        for j in range(3, 3 + m):
+            sum_of_degrees = float(sum([len(vertices) for _, vertices in adjacency_list.items()]))
+            vertice_count = float(len(adjacency_list))
+            adjacency_list[j] = []
+
+            for vertice, vertices in adjacency_list.items():
+                if (len(vertices) / sum_of_degrees) < random.random():
+                    adjacency_list[j].append(vertice)
+
+            #adjacency_list[j] = [i for i in range(vertice_count) if random.random() < (len(adjacency_list[i]) / sum_of_degrees)]
+
+        return Graph(adjacency_list)
+
 
     def write(self, filepath):
         """
