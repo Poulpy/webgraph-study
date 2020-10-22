@@ -46,6 +46,8 @@ class TestGraph(unittest.TestCase):
         adlist = {0: [1, 3, 56], 1: [0], 3: [0, 56], 56: [0, 3]}
         graph = Graph(adlist)
         self.assertEqual(graph.edge_count(), 4)
+        graph = Graph()
+        self.assertEqual(graph.edge_count(), 0)
 
 
 if  __name__ == '__main__':
