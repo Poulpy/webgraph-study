@@ -98,12 +98,20 @@ class Graph:
         """
         TODO
         write the adjacency list in a TEXT file (not binary)
+
+        Exception: file or path incorrect
         """
-        pass
+        f = open(filepath, "w")
+        for vertice, vertices in self.adjacency_list.items():
+            f.write(str(vertice) + "," + ",".join(map(str, vertices)))
+            f.write("\n")
+        f.close()
 
     def read(self, filepath):
         """
         TODO
         reads an adjacency list from a TEXT file
+
+        Exception: file or path incorrect
         """
         pass
