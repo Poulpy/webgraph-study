@@ -49,6 +49,12 @@ class TestGraph(unittest.TestCase):
         graph = Graph()
         self.assertEqual(graph.edge_count(), 0)
 
+    def test_maximum_degree(self):
+        adlist = {0: [1,3], 1: [0], 3: [0]}
+        graph = Graph(adlist)
+        self.assertEqual(graph.maximum_degree(), 2)
+
+
 
 if  __name__ == '__main__':
     unittest.main()

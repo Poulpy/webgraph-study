@@ -34,7 +34,7 @@ class Graph:
         """
         TODO
         """
-        pass
+        return max([len(i) for i in self.adjacency_list.values()])
 
     def average_degree(self):
         """
