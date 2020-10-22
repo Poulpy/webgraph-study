@@ -38,9 +38,11 @@ class Graph:
 
     def average_degree(self):
         """
-        TODO
+        Returns average degree : total degrees divided by total vertices
         """
-        pass
+        degrees_sum = sum([len(i) for i in self.adjacency_list.values()])
+        return degrees_sum / float(self.vertice_count())
+
 
     def diameter(self):
         """

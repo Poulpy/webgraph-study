@@ -54,7 +54,15 @@ class TestGraph(unittest.TestCase):
         graph = Graph(adlist)
         self.assertEqual(graph.maximum_degree(), 2)
 
+    def test_vertice_count(self):
+        adlist = {0: [1,3], 1: [0], 3: [0]}
+        graph = Graph(adlist)
+        self.assertEqual(graph.vertice_count(), 3)
 
+    def test_average_degree(self):
+        adlist = {0: [1,3], 1: [0], 3: [0]}
+        graph = Graph(adlist)
+        self.assertEqual(graph.average_degree(), 4.0/3.0)
 
 if  __name__ == '__main__':
     unittest.main()
