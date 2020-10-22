@@ -96,7 +96,6 @@ class Graph:
 
     def write(self, filepath):
         """
-        TODO
         write the adjacency list in a TEXT file (not binary)
 
         Exception: file or path incorrect
@@ -107,11 +106,21 @@ class Graph:
             f.write("\n")
         f.close()
 
-    def read(self, filepath):
+    @staticmethod
+    def read(filepath):
         """
-        TODO
         reads an adjacency list from a TEXT file
 
         Exception: file or path incorrect
         """
-        pass
+        file = open(filepath)  
+        adjacency_list = {}
+    
+        # Reading from file  
+        for line in file.readlines():
+            vertices = line.rstrip().split(',')
+            adjacency_list[vertices[0]] = vertices[1:]
+          
+        # closing the file 
+        file.close() 
+        return Graph(adjacency_list)
