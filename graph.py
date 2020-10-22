@@ -32,7 +32,7 @@ class Graph:
 
     def maximum_degree(self):
         """
-        TODO
+        Returns the maximum of edges a vertice can have in a graph
         """
         return max([len(i) for i in self.adjacency_list.values()])
 
