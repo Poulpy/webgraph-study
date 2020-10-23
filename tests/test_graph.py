@@ -1,7 +1,9 @@
 from graph import Graph
 import unittest
+import os
 
 TEST_DIR = "tests/"
+RESOURCES_DIR = "resources/"
 
 class TestGraph(unittest.TestCase):
 
@@ -70,6 +72,12 @@ class TestGraph(unittest.TestCase):
         distrib = graph.degree_distribution()
         self.assertEqual(distrib[1], 1.0/3.0)
         self.assertEqual(distrib[2], 1.0/6.0)
+
+    def test_read_edges(self):
+        Graph.read_edges(RESOURCES_DIR + "twitchDE.csv")
+        # res_folder = Path(RESOURCES_DIR).rglob('*.csv')
+        # for csv_file in os.listdir(RESOURCES_DIR):
+        #     graph = Graph.read_edges(RESOURCES_DIR + csv_file)
 
 if  __name__ == '__main__':
     unittest.main()

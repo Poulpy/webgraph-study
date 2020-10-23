@@ -124,6 +124,14 @@ class Graph:
 
         return Graph(adjacency_list)
 
+    def print_parameters(self):
+        print "NUMBER OF VERTICES\t%d" % (self.vertice_count)
+        print "NUMBER OF EDGES\t%d" % (self.edge_count)
+        print "MAXIMUM DEGREE\t%d" % (self.maximum_degree)
+        print "AVERAGE DEGREE\t%d" % (self.average_degree)
+        print "DISTRIBUTION\t"
+        print "DIAMETER\t"
+
 
     def write(self, filepath):
         """
@@ -151,6 +159,28 @@ class Graph:
         for line in file.readlines():
             vertices = line.rstrip().split(',')
             adjacency_list[vertices[0]] = vertices[1:]
+
+        # closing the file
+        file.close()
+        return Graph(adjacency_list)
+
+    @staticmethod
+    def read_edges(filepath):
+        """
+        reads edges from a file like this
+        edge1,edge2
+        """
+        file = open(filepath)
+        adjacency_list = {}
+
+        # Reading from file
+        for line in file.readlines():
+            origin, dest = line.rstrip().split(',')
+
+            if origin in adjacency_list.keys():
+                adjacency_list[origin].append(dest)
+            else:
+                adjacency_list[origin] = [dest]
 
         # closing the file
         file.close()
