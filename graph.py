@@ -46,9 +46,18 @@ class Graph:
 
     def diameter(self):
         """
-        TODO
+        Return the longest path of the shortests path
         """
-        pass
+        shortest_paths = self.floyd_warshall()
+        print shortest_paths
+        diameter = 0
+
+        for o in shortest_paths:
+            temp_max = max(o)
+            if temp_max > diameter:
+                diameter = temp_max
+
+        return diameter
 
     def degree_distribution(self):
         """
@@ -123,6 +132,33 @@ class Graph:
             #adjacency_list[j] = [i for i in range(vertice_count) if random.random() < (len(adjacency_list[i]) / sum_of_degrees)]
 
         return Graph(adjacency_list)
+
+    def floyd_warshall(self):
+        """
+        Floyd Warshall algorithm stores the shortest paths in a matrix
+        Credits to Wikipedia article
+
+        Vertices must be INTEGERS because the method is using list
+        If using other type (string), then use hash please
+        """
+        vertice_count = self.vertice_count()
+        dist = [[float('inf') for i in range(vertice_count)] for j in range(vertice_count)]
+
+        for origin, destinations in self.adjacency_list.items():
+            for destination in destinations:
+                dist[origin][destination] = 1
+
+        for origin in self.adjacency_list.keys():
+            dist[origin][origin] = 0
+
+        for k in range(vertice_count):
+            for i in range(vertice_count):
+                for j in range(vertice_count):
+                    if dist[i][j] > dist[i][k] + dist[k][j]:
+                        dist[i][j] = dist[i][k] + dist[k][j]
+
+        return dist
+
 
     def write_parameters(self, filepath):
         """

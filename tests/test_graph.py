@@ -73,7 +73,14 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(distrib[1], 1.0/3.0)
         self.assertEqual(distrib[2], 1.0/6.0)
 
+    def test_diameter(self):
+        adlist = {0: [1,2], 1: [0,3], 3: [1], 2:[0]}
+        graph = Graph(adlist)
+
+        self.assertEqual(graph.diameter(), 3)
+
     def test_read_edges(self):
+        return
         Graph.read_edges(RESOURCES_DIR + "twitchDE.csv")
         # res_folder = Path(RESOURCES_DIR).rglob('*.csv')
         # for csv_file in os.listdir(RESOURCES_DIR):
