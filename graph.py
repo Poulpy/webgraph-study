@@ -49,7 +49,6 @@ class Graph:
         Return the longest path of the shortests path
         """
         shortest_paths = self.floyd_warshall()
-        print shortest_paths
         diameter = 0
 
         for o in shortest_paths:
@@ -67,6 +66,7 @@ class Graph:
         """
         degrees = {}
         total_degrees = 2 * self.vertice_count()
+
         for k in self.adjacency_list.values():
             d = len(k)
             if d in degrees.keys():
@@ -77,9 +77,6 @@ class Graph:
         for k in degrees.keys():
             degrees[k] /= float(total_degrees)
 
-        # print degrees.keys()
-        # print degrees.values()
-        # print total_degrees
         return degrees
 
     @staticmethod
