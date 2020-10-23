@@ -124,13 +124,21 @@ class Graph:
 
         return Graph(adjacency_list)
 
-    def print_parameters(self):
-        print "NUMBER OF VERTICES\t%d" % (self.vertice_count)
-        print "NUMBER OF EDGES\t%d" % (self.edge_count)
-        print "MAXIMUM DEGREE\t%d" % (self.maximum_degree)
-        print "AVERAGE DEGREE\t%d" % (self.average_degree)
-        print "DISTRIBUTION\t"
-        print "DIAMETER\t"
+    def write_parameters(self, filepath):
+        """
+        Write parameters in a CSV file
+        """
+        f = open(filepath, "w")
+
+        f.write(str(self.vertice_count()) + ',' + str(self.edge_count()) + ',')
+        f.write(str(self.maximum_degree()) + ',' + str(self.average_degree()))
+        f.write(',' + str(self.diameter()))
+        f.write("\n")
+
+        for degree, freq in self.degree_distribution().items():
+            f.write(str(degree) + ',' + str(freq) + "\n")
+
+        f.close()
 
 
     def write(self, filepath):
