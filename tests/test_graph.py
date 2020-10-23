@@ -64,5 +64,12 @@ class TestGraph(unittest.TestCase):
         graph = Graph(adlist)
         self.assertEqual(graph.average_degree(), 4.0/3.0)
 
+    def test_degree_distribution(self):
+        adlist = {0: [1,3], 1: [0], 3: [0]}
+        graph = Graph(adlist)
+        distrib = graph.degree_distribution()
+        self.assertEqual(distrib[1], 1.0/3.0)
+        self.assertEqual(distrib[2], 1.0/6.0)
+
 if  __name__ == '__main__':
     unittest.main()

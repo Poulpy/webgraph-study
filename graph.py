@@ -52,11 +52,26 @@ class Graph:
 
     def degree_distribution(self):
         """
-        TODO
-        Displays the distribution of degrees. x axis : degree;
-        y axis : frequency
+        Returns the distribution of degrees in a hash
+        key : degree;
+        value : frequency
         """
-        pass
+        degrees = {}
+        total_degrees = 2 * self.vertice_count()
+        for k in self.adjacency_list.values():
+            d = len(k)
+            if d in degrees.keys():
+                degrees[d] += 1
+            else:
+                degrees[d] = 1
+
+        for k in degrees.keys():
+            degrees[k] /= float(total_degrees)
+
+        # print degrees.keys()
+        # print degrees.values()
+        # print total_degrees
+        return degrees
 
     @staticmethod
     def edgar_gilbert_graph(vertice_count):
@@ -96,12 +111,13 @@ class Graph:
                           2: [0,1]}
 
         for j in range(3, 3 + m):
-            sum_of_degrees = float(sum([len(vertices) for _, vertices in adjacency_list.items()]))
+            sum_of_degrees = float(sum([len(vertices) for vertices in adjacency_list.values()]))
             vertice_count = float(len(adjacency_list))
             adjacency_list[j] = []
 
             for vertice, vertices in adjacency_list.items():
-                if (len(vertices) / sum_of_degrees) < random.random():
+                probability = len(vertices) / sum_of_degrees
+                if probability < random.random():
                     adjacency_list[j].append(vertice)
 
             #adjacency_list[j] = [i for i in range(vertice_count) if random.random() < (len(adjacency_list[i]) / sum_of_degrees)]
