@@ -217,6 +217,8 @@ class Graph:
         # Reading from file
         for line in file.readlines():
             origin, dest = line.rstrip().split(',')
+            origin = int(origin)
+            dest = int(dest)
 
             if origin in adjacency_list.keys():
                 adjacency_list[origin].append(dest)
