@@ -51,10 +51,10 @@ class Graph:
         shortest_paths = self.floyd_warshall()
         diameter = 0
 
-        for o in shortest_paths:
-            temp_max = max(o)
-            if temp_max > diameter:
-                diameter = temp_max
+        for origin, destinations in shortest_paths.items():
+            for destination in destinations.values():
+                if destination > diameter:
+                    diameter = destination
 
         return diameter
 
@@ -75,7 +75,7 @@ class Graph:
                 degrees[d] = 1
 
         for k in degrees.keys():
-            degrees[k] /= float(total_degrees)
+            degrees[k] = (degrees[k] * 100) / float(total_degrees)
 
         return degrees
 
@@ -130,6 +130,15 @@ class Graph:
 
         return Graph(adjacency_list)
 
+    def get_vertices(self):
+        vertices = []
+
+        for k, v in self.adjacency_list.items():
+            vertices.append(k)
+            vertices.extend(v)
+
+        return list(dict.fromkeys(vertices))
+
     def floyd_warshall(self):
         """
         Floyd Warshall algorithm stores the shortest paths in a matrix
@@ -138,19 +147,31 @@ class Graph:
         Vertices must be INTEGERS because the method is using list
         If using other type (string), then use hash please
         """
+        # vertice_count = max(self.adjacency_list.keys())
+        # dist = [[float('inf') for i in range(vertice_count + 1)] for j in range(vertice_count + 1)]
         vertice_count = self.vertice_count()
-        dist = [[float('inf') for i in range(vertice_count)] for j in range(vertice_count)]
+        dist = {}
+        vertices = self.get_vertices()
+
+        for v in vertices:
+            dist[v] = {}
+            for b in vertices:
+                dist[v][b] = float('inf')
 
         for origin, destinations in self.adjacency_list.items():
+            dist[origin][origin] = 0
             for destination in destinations:
                 dist[origin][destination] = 1
 
-        for origin in self.adjacency_list.keys():
-            dist[origin][origin] = 0
 
-        for k in range(vertice_count):
-            for i in range(vertice_count):
-                for j in range(vertice_count):
+        # for k in range(vertice_count):
+        #     for i in range(vertice_count):
+        #         for j in range(vertice_count):
+        #             if dist[i][j] > dist[i][k] + dist[k][j]:
+        #                 dist[i][j] = dist[i][k] + dist[k][j]
+        for k in self.adjacency_list.keys():
+            for i in self.adjacency_list.keys():
+                for j in self.adjacency_list.keys():
                     if dist[i][j] > dist[i][k] + dist[k][j]:
                         dist[i][j] = dist[i][k] + dist[k][j]
 
@@ -163,13 +184,20 @@ class Graph:
         """
         f = open(filepath, "w")
 
-        f.write(str(self.vertice_count()) + ',' + str(self.edge_count()) + ',')
-        f.write(str(self.maximum_degree()) + ',' + str(self.average_degree()))
-        f.write(',' + str(self.diameter()))
+        f.write(str(self.vertice_count()) + '\t' + str(self.edge_count()) + '\t')
+        f.write(str(self.maximum_degree()) + '\t' + str(self.average_degree()))
+        f.write('\t' + str(self.diameter()))
         f.write("\n")
 
-        for degree, freq in self.degree_distribution().items():
-            f.write(str(degree) + ',' + str(freq) + "\n")
+        distrib = self.degree_distribution()
+
+        for degree in distrib.keys():
+            f.write(str(degree) + '\t')
+
+        f.write("\n")
+
+        for degree in distrib.keys():
+            f.write(str(distrib[degree]).replace('.', ',') + '\t')
 
         f.close()
 
@@ -225,6 +253,10 @@ class Graph:
             else:
                 adjacency_list[origin] = [dest]
 
+            if dest in adjacency_list.keys():
+                adjacency_list[dest].append(origin)
+            else:
+                adjacency_list[dest] = [origin]
         # closing the file
         file.close()
         return Graph(adjacency_list)
