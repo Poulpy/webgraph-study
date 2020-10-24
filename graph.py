@@ -229,14 +229,7 @@ class Graph:
                 origin = int(origin)
                 dest = int(dest)
 
-                # if origin in adjacency_list:
                 adjacency_list[origin].append(dest)
-                # else:
-                #     adjacency_list[origin] = [dest]
-
-                # if dest in adjacency_list:
                 adjacency_list[dest].append(origin)
-                # else:
-                #     adjacency_list[dest] = [origin]
 
         return Graph(adjacency_list)
