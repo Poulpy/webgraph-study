@@ -1,5 +1,6 @@
 import sys
 import random
+from collections import defaultdict
 
 class Graph:
     """
@@ -201,16 +202,13 @@ class Graph:
 
         Exception: file or path incorrect
         """
-        file = open(filepath)
         adjacency_list = {}
 
-        # Reading from file
-        for line in file.readlines():
-            vertices = line.rstrip().split(',')
-            adjacency_list[vertices[0]] = vertices[1:]
+        with open(filepath) as file:
+            for line in file.readlines():
+                vertices = line.rstrip().split(',')
+                adjacency_list[vertices[0]] = vertices[1:]
 
-        # closing the file
-        file.close()
         return Graph(adjacency_list)
 
     @staticmethod
@@ -219,24 +217,26 @@ class Graph:
         reads edges from a file like this
         edge1,edge2
         """
-        file = open(filepath)
-        adjacency_list = {}
+        # defaultdict(list) initializes all values to an empty list
+        # pretty convienient for avoiding to search always if the key exists
+        adjacency_list = defaultdict(list)
 
-        # Reading from file
-        for line in file.readlines():
-            origin, dest = line.rstrip().split(',')
-            origin = int(origin)
-            dest = int(dest)
+        with open(filepath) as file:
 
-            if origin in adjacency_list:
+            # Reading from file
+            for line in file.readlines():
+                origin, dest = line.rstrip().split(',')
+                origin = int(origin)
+                dest = int(dest)
+
+                # if origin in adjacency_list:
                 adjacency_list[origin].append(dest)
-            else:
-                adjacency_list[origin] = [dest]
+                # else:
+                #     adjacency_list[origin] = [dest]
 
-            if dest in adjacency_list:
+                # if dest in adjacency_list:
                 adjacency_list[dest].append(origin)
-            else:
-                adjacency_list[dest] = [origin]
-        # closing the file
-        file.close()
+                # else:
+                #     adjacency_list[dest] = [origin]
+
         return Graph(adjacency_list)
