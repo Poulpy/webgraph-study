@@ -4,11 +4,11 @@ from graph import Graph
 DATA_DIR = "data/"
 
 def create_edgar_gilbert_graph():
-    graph = Graph.edgar_gilbert_graph(1000)
+    graph = Graph.edgar_gilbert_graph(500)
     graph.write_parameters(DATA_DIR + "edgar_gilbert_graph.csv")
 
 def create_barabasi_albert_graph():
-    graph = Graph.barabasi_albert_graph(1000)
+    graph = Graph.barabasi_albert_graph(500)
     graph.write_parameters(DATA_DIR + "barabasi_albert_graph.csv")
 
 def read_stanford_graph(filepath):

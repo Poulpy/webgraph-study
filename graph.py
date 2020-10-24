@@ -20,11 +20,8 @@ class Graph:
         Returns the number of edges
         """
         total = 0
-
-        for vertices in self.adjacency_list.values():
-            total += len(vertices)
-
-        return (total / 2)
+        edges = [len(vertices) for vertices in self.adjacency_list.values()]
+        return sum(edges) / 2
 
     def maximum_degree(self):
         """
