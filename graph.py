@@ -19,7 +19,6 @@ class Graph:
         """
         Returns the number of edges
         """
-        total = 0
         edges = [len(vertices) for vertices in self.adjacency_list.values()]
         return sum(edges) / 2
 
