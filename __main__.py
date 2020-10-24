@@ -13,7 +13,6 @@ def create_barabasi_albert_graph():
 
 def read_stanford_graph(filepath):
     graph = Graph.read_edges(filepath)
-    # graph.write(DATA_DIR + filepath.split("/")[-1])
     graph.write_parameters(DATA_DIR + filepath.split("/")[-1])
 
 if __name__ == "__main__":

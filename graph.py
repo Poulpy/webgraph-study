@@ -6,7 +6,7 @@ class Graph:
     vertice : {vertice, vertice}, etc.
     For different implementations, see the wiki article on adjacency lists
     """
-    def __init__(self, adjacency_list= {}):
+    def __init__(self, adjacency_list={}):
         self.adjacency_list = adjacency_list
 
     def vertice_count(self):
@@ -37,7 +37,7 @@ class Graph:
         Returns average degree : total degrees divided by total vertices
         """
         degrees_sum = sum([len(i) for i in self.adjacency_list.values()])
-        return degrees_sum / float(self.vertice_count())
+        return degrees_sum / self.vertice_count()
 
 
     def diameter(self):
@@ -108,21 +108,17 @@ class Graph:
         if m <= 0:
             return Graph()
 
-        adjacency_list = {0: [1,2],
-                          1: [0,2],
-                          2: [0,1]}
+        adjacency_list = {0: [1,2], 1: [0,2], 2: [0,1]}
 
         for j in range(3, 3 + m):
-            sum_of_degrees = float(sum([len(vertices) for vertices in adjacency_list.values()]))
-            vertice_count = float(len(adjacency_list))
+            sum_of_degrees = sum([len(vertices) for vertices in adjacency_list.values()])
+            vertice_count = len(adjacency_list)
             adjacency_list[j] = []
 
             for vertice, vertices in adjacency_list.items():
                 probability = len(vertices) / sum_of_degrees
                 if probability < random.random():
                     adjacency_list[j].append(vertice)
-
-            #adjacency_list[j] = [i for i in range(vertice_count) if random.random() < (len(adjacency_list[i]) / sum_of_degrees)]
 
         return Graph(adjacency_list)
 
@@ -143,8 +139,6 @@ class Graph:
         Vertices must be INTEGERS because the method is using list
         If using other type (string), then use hash please
         """
-        # vertice_count = max(self.adjacency_list.keys())
-        # dist = [[float('inf') for i in range(vertice_count + 1)] for j in range(vertice_count + 1)]
         vertice_count = self.vertice_count()
         dist = {}
         vertices = self.get_vertices()
@@ -159,12 +153,6 @@ class Graph:
             for destination in destinations:
                 dist[origin][destination] = 1
 
-
-        # for k in range(vertice_count):
-        #     for i in range(vertice_count):
-        #         for j in range(vertice_count):
-        #             if dist[i][j] > dist[i][k] + dist[k][j]:
-        #                 dist[i][j] = dist[i][k] + dist[k][j]
         for k in self.adjacency_list.keys():
             for i in self.adjacency_list.keys():
                 for j in self.adjacency_list.keys():
