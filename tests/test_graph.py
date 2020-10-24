@@ -70,8 +70,8 @@ class TestGraph(unittest.TestCase):
         adlist = {0: [1,3], 1: [0], 3: [0]}
         graph = Graph(adlist)
         distrib = graph.degree_distribution()
-        self.assertEqual(distrib[1], 1.0/3.0)
-        self.assertEqual(distrib[2], 1.0/6.0)
+        self.assertEqual(distrib[1], 100.0/3.0)
+        self.assertEqual(distrib[2], 100.0/6.0)
 
     def test_diameter(self):
         adlist = {0: [1,2], 1: [0,3], 3: [1], 2:[0]}
