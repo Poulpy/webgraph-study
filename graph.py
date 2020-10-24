@@ -20,15 +20,11 @@ class Graph:
         Returns the number of edges
         """
         total = 0
-        vertices_known = []
-        for k, v in self.adjacency_list.items():
-            for vertice in vertices_known:
-                if vertice in v:
-                    v.remove(vertice)
 
-            total += len(v)
-            vertices_known.append(k)
-        return total
+        for vertices in self.adjacency_list.values():
+            total += len(vertices)
+
+        return (total / 2)
 
     def maximum_degree(self):
         """
@@ -75,7 +71,7 @@ class Graph:
                 degrees[d] = 1
 
         for k in degrees.keys():
-            degrees[k] = (degrees[k] * 100) / float(total_degrees)
+            degrees[k] = (degrees[k] * 100) / total_degrees
 
         return degrees
 
@@ -96,8 +92,8 @@ class Graph:
         edge_appearance_probability = 0.5
 
         for vertice in range(vertice_count):
-            other_vertices = range(vertice_count)
-            other_vertices.pop(vertice)
+            other_vertices = list(range(vertice_count))
+            other_vertices.remove(vertice)
             adjacency_list[vertice] = [i for i in other_vertices if edge_appearance_probability < random.random()]
 
         return Graph(adjacency_list)
@@ -248,12 +244,12 @@ class Graph:
             origin = int(origin)
             dest = int(dest)
 
-            if origin in adjacency_list.keys():
+            if origin in adjacency_list:
                 adjacency_list[origin].append(dest)
             else:
                 adjacency_list[origin] = [dest]
 
-            if dest in adjacency_list.keys():
+            if dest in adjacency_list:
                 adjacency_list[dest].append(origin)
             else:
                 adjacency_list[dest] = [origin]
