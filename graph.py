@@ -32,7 +32,7 @@ class Graph:
         """
         Returns average degree : total degrees divided by total vertices
         """
-        degrees_sum = sum([len(i) for i in self.adjacency_list.values()])
+        degrees_sum = 2 * self.edge_count()
         return degrees_sum / self.vertice_count()
 
 
@@ -43,7 +43,7 @@ class Graph:
         shortest_paths = self.floyd_warshall()
         diameter = 0
 
-        for origin, destinations in shortest_paths.items():
+        for destinations in shortest_paths.values():
             for destination in destinations.values():
                 if destination > diameter:
                     diameter = destination
@@ -57,11 +57,11 @@ class Graph:
         value : frequency
         """
         degrees = {}
-        total_degrees = 2 * self.vertice_count()
+        total_degrees = self.vertice_count()
 
-        for k in self.adjacency_list.values():
-            d = len(k)
-            if d in degrees.keys():
+        for vertices in self.adjacency_list.values():
+            d = len(vertices)
+            if d in degrees:
                 degrees[d] += 1
             else:
                 degrees[d] = 1
