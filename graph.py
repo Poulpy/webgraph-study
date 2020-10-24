@@ -1,3 +1,4 @@
+import sys
 import random
 
 class Graph:
@@ -162,25 +163,25 @@ class Graph:
         """
         Write parameters in a CSV file
         """
-        f = open(filepath, "w")
-
-        f.write(str(self.vertice_count()) + '\t' + str(self.edge_count()) + '\t')
-        f.write(str(self.maximum_degree()) + '\t' + str(self.average_degree()))
-        f.write('\t' + str(self.diameter()))
-        f.write("\n")
-
         distrib = self.degree_distribution()
+        original_stdout = sys.stdout
 
-        for degree in distrib.keys():
-            f.write(str(degree) + '\t')
+        with open(filepath, 'w') as f:
+            sys.stdout = f
+            f.write(f"{self.vertice_count()}\t{self.edge_count()}\t")
+            f.write(f"{self.maximum_degree()}\t{self.average_degree()}\t")
+            f.write(f"{self.diameter()}\n")
 
-        f.write("\n")
+            for degree in distrib.keys():
+                f.write(f"{degree}\t")
 
-        for degree in distrib.keys():
-            f.write(str(distrib[degree]).replace('.', ',') + '\t')
+            f.write("\n")
 
-        f.close()
+            for degree in distrib.keys():
+                comma_float = str(distrib[degree]).replace('.', ',')
+                f.write(f"{comma_float}\t")
 
+            sys.stdout = original_stdout
 
     def write(self, filepath):
         """
@@ -188,11 +189,10 @@ class Graph:
 
         Exception: file or path incorrect
         """
-        f = open(filepath, "w")
-        for vertice, vertices in self.adjacency_list.items():
-            f.write(str(vertice) + "," + ",".join(map(str, vertices)))
-            f.write("\n")
-        f.close()
+        with open(filepath, 'w') as file:
+            for vertice, vertices in self.adjacency_list.items():
+                vertices_str = ",".join(map(str, vertices))
+                file.write(f"{vertice},{vertices_str}\n")
 
     @staticmethod
     def read(filepath):
