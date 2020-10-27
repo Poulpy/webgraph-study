@@ -171,7 +171,8 @@ class Graph:
             sys.stdout = f
             f.write(f"{self.vertice_count()}\t{self.edge_count()}\t")
             f.write(f"{self.maximum_degree()}\t{self.average_degree()}\t")
-            f.write(f"{self.diameter()}\n")
+            # f.write(f"{self.diameter()}\n")
+            f.write(f"\n")
 
             for degree in distrib.keys():
                 f.write(f"{degree}\t")
