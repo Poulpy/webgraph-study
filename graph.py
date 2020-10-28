@@ -86,13 +86,20 @@ class Graph:
         if vertice_count <= 0:
             return Graph()
 
-        adjacency_list = {}
+        adjacency_list = defaultdict(list)
         edge_appearance_probability = 0.5
 
         for vertice in range(vertice_count):
             other_vertices = list(range(vertice_count))
             other_vertices.remove(vertice)
-            adjacency_list[vertice] = [i for i in other_vertices if edge_appearance_probability < random.random()]
+
+            for i in adjacency_list[vertice]:
+                other_vertices.remove(i)
+
+            for i in other_vertices:
+                if random.random() < edge_appearance_probability:
+                    adjacency_list[vertice].append(i)
+                    adjacency_list[i].append(vertice)
 
         return Graph(adjacency_list)
 
@@ -106,17 +113,21 @@ class Graph:
         if m <= 0:
             return Graph()
 
-        adjacency_list = {0: [1,2], 1: [0,2], 2: [0,1]}
+        adjacency_list = defaultdict(list, {0: [1,2], 1: [0,2], 2: [0,1]})
 
         for j in range(3, 3 + m):
             sum_of_degrees = sum([len(vertices) for vertices in adjacency_list.values()])
-            vertice_count = len(adjacency_list)
-            adjacency_list[j] = []
+            degree = len(adjacency_list[j])
 
-            for vertice, vertices in adjacency_list.items():
-                probability = len(vertices) / sum_of_degrees
-                if probability < random.random():
-                    adjacency_list[j].append(vertice)
+            # We want to iterate through all other nodes
+            # that means : not the node we're iterating right now (j)
+            # and not the nodes which are already connected to j
+            nodes = set(adjacency_list.keys()) - { j } - set(adjacency_list[j])
+
+            for node in nodes:
+                probability = degree / sum_of_degrees
+                if random.random() < probability:
+                    adjacency_list[j].append(node)
 
         return Graph(adjacency_list)
 

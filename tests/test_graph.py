@@ -9,6 +9,10 @@ class TestGraph(unittest.TestCase):
 
     def test_edgar_gilbert_graph(self):
         graph = Graph.edgar_gilbert_graph(10)
+        # print(graph.adjacency_list)
+        for v, vs in graph.adjacency_list.items():
+            for vertice in vs:
+                self.assertTrue(v in graph.adjacency_list[vertice])
         graph = Graph.edgar_gilbert_graph(-1)
         self.assertEqual(graph.adjacency_list, Graph().adjacency_list)
         # graph = Graph.edgar_gilbert_graph(1.2)
@@ -16,6 +20,10 @@ class TestGraph(unittest.TestCase):
 
     def test_barabasi_albert_graph(self):
         graph2 = Graph.barabasi_albert_graph(3)
+        print(graph2.adjacency_list)
+        for v, vs in graph2.adjacency_list.items():
+            for vertice in vs:
+                self.assertTrue(v in graph2.adjacency_list[vertice])
         graph2 = Graph.barabasi_albert_graph(-1)
         self.assertEqual(graph2.adjacency_list, Graph().adjacency_list)
 
