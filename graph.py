@@ -89,17 +89,38 @@ class Graph:
         adjacency_list = defaultdict(list)
         edge_appearance_probability = 0.5
 
-        for vertice in range(vertice_count):
-            other_vertices = list(range(vertice_count))
-            other_vertices.remove(vertice)
-
-            for i in adjacency_list[vertice]:
-                other_vertices.remove(i)
-
-            for i in other_vertices:
+        for i in range(vertice_count):
+            for j in range(i):
                 if random.random() < edge_appearance_probability:
-                    adjacency_list[vertice].append(i)
-                    adjacency_list[i].append(vertice)
+                    adjacency_list[i].append(j)
+                    adjacency_list[j].append(i)
+        # edges = set()
+
+        # for i in range(vertice_count):
+        #     adjacency_list[i] = set(list(range(vertice_count))) - {i}
+
+        # for vertex, neighbours in adjacency_list.items():
+        #     for neighbour in neighbours:
+        #         edges |= {(vertex, neighbour)}
+
+        # for edge in edges:
+        #     edges -= (edge[1], edge[0])
+
+        # for edge in edges:
+        #     if random.random() < edge_appearance_probability:
+        #         edges -= edge
+
+        # for vertice in range(vertice_count):
+        #     other_vertices = list(range(vertice_count))
+        #     other_vertices.remove(vertice)
+
+        #     for i in adjacency_list[vertice]:
+        #         other_vertices.remove(i)
+
+        #     for i in other_vertices:
+        #         if random.random() < edge_appearance_probability:
+        #             adjacency_list[vertice].append(i)
+        #             adjacency_list[i].append(vertice)
 
         return Graph(adjacency_list)
 
