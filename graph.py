@@ -111,7 +111,6 @@ class Graph:
 
         for j in range(3, 3 + m):
             sum_of_degrees = sum([len(vertices) for vertices in adjacency_list.values()])
-            degree = len(adjacency_list[j])
 
             # We want to iterate through all other nodes
             # that means : not the node we're iterating right now (j)
@@ -119,6 +118,7 @@ class Graph:
             nodes = set(adjacency_list.keys()) - { j } - set(adjacency_list[j])
 
             for node in nodes:
+                degree = len(adjacency_list[node])
                 probability = degree / sum_of_degrees
                 if random.random() < probability:
                     adjacency_list[j].append(node)
