@@ -260,7 +260,7 @@ class Graph:
 
     def write_graph(self, filepath):
         """
-        Creates a PNG file containing the graph representing
+        Creates a PNG file containing the plot representing
         the repartition of degrees in the graph
         """
         # getting the data
