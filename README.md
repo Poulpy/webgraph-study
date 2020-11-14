@@ -28,7 +28,9 @@ python3 tests/test_graph.py
 
 ## Dependencies
 
-Python 3
+Python 3.8.5
+
+Matplotlib 3.3.3
 
 ## Notes
 

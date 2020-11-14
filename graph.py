@@ -259,11 +259,20 @@ class Graph:
         return Graph(adjacency_list)
 
     def write_graph(self, filepath):
+        """
+        Creates a PNG file containing the graph representing
+        the repartition of degrees in the graph
+        """
+        # getting the data
         distrib = self.degree_distribution_as_lists()
-        plt.plot(distrib[0], distrib[1], 'ro')
+
+        # create the plot
+        plt.plot(distrib[0], distrib[1], 'r,')
         plt.ylabel('Fréquence')
         plt.xlabel('Degrés')
         plt.title('Graphe de répartition des degrés')
+
+        # create the png file
         plt.savefig(filepath)
 
 
