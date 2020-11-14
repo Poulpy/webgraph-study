@@ -1,6 +1,7 @@
 import sys
 import random
 from collections import defaultdict
+import matplotlib.pyplot as plt
 
 class Graph:
     """
@@ -52,6 +53,23 @@ class Graph:
 
         return diameter
 
+    def degree_distribution_as_lists(self):
+        """
+        Returns the distribution of degrees in a 2D list
+        [d1, d2, ...], [f1, f2, ...]
+        """
+        distrib = self.degree_distribution()
+        distrib_list = [[0 for i in range(len(distrib.keys()))] for j in range(2)]
+        i = 0
+
+        for degree, freq in distrib.items():
+            distrib_list[0][i] = degree
+            distrib_list[1][i] = freq
+            i += 1
+
+        return distrib_list
+
+
     def degree_distribution(self):
         """
         Returns the distribution of degrees in a hash
@@ -69,7 +87,7 @@ class Graph:
                 degrees[d] = 1
 
         for k in degrees.keys():
-            degrees[k] = (degrees[k] * 100) / total_degrees
+            degrees[k] = (degrees[k]) / total_degrees
 
         return degrees
 
@@ -239,3 +257,13 @@ class Graph:
                 adjacency_list[dest].append(origin)
 
         return Graph(adjacency_list)
+
+    def write_graph(self, filepath):
+        distrib = self.degree_distribution_as_lists()
+        plt.plot(distrib[0], distrib[1], 'ro')
+        plt.ylabel('Fréquence')
+        plt.xlabel('Degrés')
+        plt.title('Graphe de répartition des degrés')
+        plt.savefig(filepath)
+
+

@@ -93,5 +93,9 @@ class TestGraph(unittest.TestCase):
         # for csv_file in os.listdir(RESOURCES_DIR):
         #     graph = Graph.read_edges(RESOURCES_DIR + csv_file)
 
+    def test_display_graph(self):
+        graph = Graph.read_edges(RESOURCES_DIR + "twitchDE.csv")
+        graph.write_graph('data/plots/twitchDE.png')
+
 if  __name__ == '__main__':
     unittest.main()
