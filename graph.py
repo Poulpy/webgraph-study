@@ -14,13 +14,13 @@ class Graph:
 
     def vertice_count(self):
         """
-        Returns the number of vertices
+        Returns the number of vertices in the graph
         """
         return len(self.adjacency_list.keys())
 
     def edge_count(self):
         """
-        Returns the number of edges
+        Returns the number of edges; it's the double of the sum of degrees
         """
         edges = [len(vertices) for vertices in self.adjacency_list.values()]
         return int(sum(edges) / 2)
@@ -59,7 +59,8 @@ class Graph:
         [d1, d2, ...], [f1, f2, ...]
         """
         distrib = self.degree_distribution()
-        distrib_list = [[0 for i in range(len(distrib.keys()))] for j in range(2)]
+        degree_count = len(distrib.keys())
+        distrib_list = [[0 for i in range(degree_count)] for j in range(2)]
         i = 0
 
         for degree, freq in distrib.items():
@@ -76,15 +77,12 @@ class Graph:
         key : degree;
         value : frequency
         """
-        degrees = {}
+        degrees = defaultdict(int)
         total_degrees = self.vertice_count()
 
         for vertices in self.adjacency_list.values():
-            d = len(vertices)
-            if d in degrees:
-                degrees[d] += 1
-            else:
-                degrees[d] = 1
+            degree = len(vertices)
+            degrees[degree] += 1
 
         for k in degrees.keys():
             degrees[k] = (degrees[k]) / total_degrees
@@ -192,11 +190,14 @@ class Graph:
 
         with open(filepath, 'w') as f:
             sys.stdout = f
+            f.write("vertice_count\tedge_count\tmaximum_degree\t")
+            f.write("average_degree\n")
             f.write(f"{self.vertice_count()}\t{self.edge_count()}\t")
             f.write(f"{self.maximum_degree()}\t{self.average_degree()}\t")
             # f.write(f"{self.diameter()}\n")
             f.write(f"\n")
 
+            """
             for degree in distrib.keys():
                 f.write(f"{degree}\t")
 
@@ -205,8 +206,18 @@ class Graph:
             for degree in distrib.keys():
                 comma_float = str(distrib[degree]).replace('.', ',')
                 f.write(f"{comma_float}\t")
+            """
 
             sys.stdout = original_stdout
+
+    def write_edges(self, filepath):
+        """
+        write the list of edges in a TEXT file
+
+        Exception: file or path incorrect
+        """
+        pass
+
 
     def write(self, filepath):
         """

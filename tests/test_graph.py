@@ -20,7 +20,7 @@ class TestGraph(unittest.TestCase):
 
     def test_barabasi_albert_graph(self):
         graph2 = Graph.barabasi_albert_graph(3)
-        print(graph2.adjacency_list)
+        # print(graph2.adjacency_list)
         for v, vs in graph2.adjacency_list.items():
             for vertice in vs:
                 self.assertTrue(v in graph2.adjacency_list[vertice])
@@ -78,8 +78,8 @@ class TestGraph(unittest.TestCase):
         adlist = {0: [1,3], 1: [0], 3: [0]}
         graph = Graph(adlist)
         distrib = graph.degree_distribution()
-        self.assertEqual(distrib[1], 200.0/3.0)
-        self.assertEqual(distrib[2], 100.0/3.0)
+        self.assertEqual(distrib[1], 2.0/3.0)
+        self.assertEqual(distrib[2], 1.0/3.0)
 
     def test_diameter(self):
         adlist = {0: [1,2], 1: [0,3], 3: [1], 2:[0]}
