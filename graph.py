@@ -267,7 +267,7 @@ class Graph:
         distrib = self.degree_distribution_as_lists()
 
         # create the plot
-        plt.plot(distrib[0], distrib[1], 'r,')
+        plt.bar(distrib[0], distrib[1])
         plt.ylabel('Fréquence')
         plt.xlabel('Degrés')
         plt.title('Graphe de répartition des degrés')
