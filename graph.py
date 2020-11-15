@@ -214,7 +214,6 @@ class Graph:
         """
         Write parameters in a CSV file
         """
-        distrib = self.degree_distribution()
         original_stdout = sys.stdout
 
         with open(filepath, 'w') as f:
@@ -306,5 +305,25 @@ class Graph:
 
         # create the png file
         plt.savefig(filepath)
+
+    def generate_table_parameters(self, filepath: str):
+        fig = plt.figure(dpi = 80)
+        ax = fig.add_subplot(1, 1, 1)
+        table_data = [
+                ['Nombre de sommets', self.vertice_count()],
+                ["Nombre d'arcs", self.edge_count()],
+                ['Degré maximal', self.maximum_degree()],
+                ['Degré moyen', "{0:.2f}".format(self.average_degree())]
+        ]
+
+        print(table_data)
+
+        table = ax.table(cellText=table_data, loc='center')
+        table.set_fontsize(14)
+        table.scale(1, 4)
+        ax.axis('off')
+
+        plt.savefig(filepath)
+
 
 

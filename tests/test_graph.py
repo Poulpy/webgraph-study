@@ -4,6 +4,7 @@ import os
 
 TEST_DIR = "tests/"
 RESOURCES_DIR = "resources/"
+TABLES_DIR = "data/tables/"
 
 class TestGraph(unittest.TestCase):
 
@@ -110,6 +111,10 @@ class TestGraph(unittest.TestCase):
             self.assertTrue(edges[0] in graph.adjacency_list[edges[1]])
 
         # check unicity (no [a, b] and [b, a])
+
+    def test_generate_table_parameters(self):
+        graph = Graph.read_edges(RESOURCES_DIR + "twitchDE.csv")
+        graph.generate_table_parameters(TABLES_DIR + "twitchDE.png")
 
 
 
