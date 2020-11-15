@@ -101,10 +101,17 @@ class TestGraph(unittest.TestCase):
         empty_graph = Graph()
         self.assertEqual(empty_graph.get_edges(), [])
 
-        graph = Graph.read_edges(RESOURCES_DIR + "twitchDE.csv")
-        for edges in graph.get_edges():
+        graph = Graph.edgar_gilbert_graph(100)
+        edges_list = graph.get_edges()
+
+        # check integrity : all edges are in the adjacency list
+        for edges in edges_list:
             self.assertTrue(edges[1] in graph.adjacency_list[edges[0]])
             self.assertTrue(edges[0] in graph.adjacency_list[edges[1]])
+
+        # check unicity (no [a, b] and [b, a])
+
+
 
 if  __name__ == '__main__':
     unittest.main()
