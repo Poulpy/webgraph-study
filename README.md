@@ -6,12 +6,20 @@ The goal is to calculate parameters for certain graphs :
 - edgar-gilbert graphs
 - graphs from the stanford database (from the web)
 
-Graph from stanford database are under resources/.
+```
+# Generate random graph
+python3 __main__.py graph <eg|ba>
+
+python3 __main__.py graph eg
+# Graph containing edges will be saved under resources/
+```
 
 ```
 # Generate plot from a set of edges
-python3 __main__.py file resources/twitchDE.csv
-# Plots are under data/plots/
+python3 __main__.py plot <filepath>
+
+python3 __main__.py plot resources/twitchDE.csv
+# Plot will be saved under data/plots/
 ```
 
 
