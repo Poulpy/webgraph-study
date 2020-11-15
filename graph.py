@@ -1,8 +1,9 @@
-import sys
-import random
+from __future__ import annotations
 from collections import defaultdict
-import matplotlib.pyplot as plt
 import copy
+import matplotlib.pyplot as plt
+import random
+import sys
 
 class Graph:
     """
@@ -10,29 +11,29 @@ class Graph:
     vertice : {vertice, vertice}, etc.
     For different implementations, see the wiki article on adjacency lists
     """
-    def __init__(self, adjacency_list={}):
+    def __init__(self, adjacency_list: dict = {}):
         self.adjacency_list = adjacency_list
 
-    def vertice_count(self):
+    def vertice_count(self) -> int:
         """
         Returns the number of vertices in the graph
         """
         return len(self.adjacency_list.keys())
 
-    def edge_count(self):
+    def edge_count(self) -> int:
         """
         Returns the number of edges; it's the double of the sum of degrees
         """
         edges = [len(vertices) for vertices in self.adjacency_list.values()]
         return int(sum(edges) / 2)
 
-    def maximum_degree(self):
+    def maximum_degree(self) -> int:
         """
         Returns the maximum of edges a vertice can have in a graph
         """
         return max([len(i) for i in self.adjacency_list.values()])
 
-    def average_degree(self):
+    def average_degree(self) -> int:
         """
         Returns average degree : total degrees divided by total vertices
         """
@@ -40,7 +41,7 @@ class Graph:
         return degrees_sum / self.vertice_count()
 
 
-    def diameter(self):
+    def diameter(self) -> int:
         """
         Return the longest path of the shortests path
         """
@@ -54,7 +55,7 @@ class Graph:
 
         return diameter
 
-    def degree_distribution_as_lists(self):
+    def degree_distribution_as_lists(self) -> list:
         """
         Returns the distribution of degrees in a 2D list
         [d1, d2, ...], [f1, f2, ...]
@@ -72,7 +73,7 @@ class Graph:
         return distrib_list
 
 
-    def degree_distribution(self):
+    def degree_distribution(self) -> dict:
         """
         Returns the distribution of degrees in a hash
         key : degree;
@@ -91,7 +92,7 @@ class Graph:
         return degrees
 
     @staticmethod
-    def edgar_gilbert_graph(vertice_count):
+    def edgar_gilbert_graph(vertice_count: int) -> Graph:
         """
         creates a random graph, as proposed by Edgar Gilbert
         An edge between each vertice is created with 1/2 probability
@@ -115,7 +116,7 @@ class Graph:
         return Graph(adjacency_list)
 
     @staticmethod
-    def barabasi_albert_graph(m):
+    def barabasi_albert_graph(m: int) -> Graph:
         """
         creates a barabasi-albert graph
 
@@ -143,7 +144,10 @@ class Graph:
 
         return Graph(adjacency_list)
 
-    def get_vertices(self):
+    def get_vertices(self) -> list:
+        """
+        Return all vertices of the graph in a list
+        """
         vertices = []
 
         for k, v in self.adjacency_list.items():
@@ -152,9 +156,9 @@ class Graph:
 
         return list(dict.fromkeys(vertices))
 
-    def get_edges(self):
+    def get_edges(self) -> list:
         """
-        Return edges in a list
+        Return edges in a list (no dups)
         [1, 2], [3, 4]
         """
         edge_count = self.edge_count()
@@ -163,6 +167,7 @@ class Graph:
             return []
 
         edges = [[] for j in range(edge_count)]
+        # dict.copy() doesn't work è.é
         adj_list = copy.deepcopy(self.adjacency_list)
         i = 0
 
@@ -174,7 +179,7 @@ class Graph:
 
         return edges
 
-    def floyd_warshall(self):
+    def floyd_warshall(self) -> dict:
         """
         Floyd Warshall algorithm stores the shortest paths in a matrix
         Credits to Wikipedia article
@@ -205,7 +210,7 @@ class Graph:
         return dist
 
 
-    def write_parameters(self, filepath):
+    def write_parameters(self, filepath: str):
         """
         Write parameters in a CSV file
         """
@@ -221,20 +226,10 @@ class Graph:
             # f.write(f"{self.diameter()}\n")
             f.write(f"\n")
 
-            """
-            for degree in distrib.keys():
-                f.write(f"{degree}\t")
-
-            f.write("\n")
-
-            for degree in distrib.keys():
-                comma_float = str(distrib[degree]).replace('.', ',')
-                f.write(f"{comma_float}\t")
-            """
 
             sys.stdout = original_stdout
 
-    def write_edges(self, filepath):
+    def write_edges(self, filepath: str):
         """
         write the list of edges in a TEXT file
 
@@ -243,7 +238,7 @@ class Graph:
         pass
 
 
-    def write(self, filepath):
+    def write(self, filepath: str):
         """
         write the adjacency list in a TEXT file (not binary)
 
@@ -255,7 +250,7 @@ class Graph:
                 file.write(f"{vertice},{vertices_str}\n")
 
     @staticmethod
-    def read(filepath):
+    def read(filepath: str) -> Graph:
         """
         reads an adjacency list from a TEXT file
 
@@ -271,7 +266,7 @@ class Graph:
         return Graph(adjacency_list)
 
     @staticmethod
-    def read_edges(filepath):
+    def read_edges(filepath: str) -> Graph:
         """
         reads edges from a file like this
         edge1,edge2
@@ -293,7 +288,7 @@ class Graph:
 
         return Graph(adjacency_list)
 
-    def write_graph(self, filepath):
+    def write_graph(self, filepath: str):
         """
         Creates a PNG file containing the plot representing
         the repartition of degrees in the graph
