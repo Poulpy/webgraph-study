@@ -170,8 +170,6 @@ class Graph:
             for vertex in nodes:
                 edges[i] = [node, vertex]
                 adj_list[vertex].remove(node)
-                if node not in self.adjacency_list[vertex]:
-                    print('PAS BON')
                 i += 1
 
         return edges
