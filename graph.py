@@ -2,6 +2,7 @@ import sys
 import random
 from collections import defaultdict
 import matplotlib.pyplot as plt
+import copy
 
 class Graph:
     """
@@ -150,6 +151,30 @@ class Graph:
             vertices.extend(v)
 
         return list(dict.fromkeys(vertices))
+
+    def get_edges(self):
+        """
+        Return edges in a list
+        [1, 2], [3, 4]
+        """
+        edge_count = self.edge_count()
+
+        if edge_count == 0:
+            return []
+
+        edges = [[] for j in range(edge_count)]
+        adj_list = copy.deepcopy(self.adjacency_list)
+        i = 0
+
+        for node, nodes in adj_list.items():
+            for vertex in nodes:
+                edges[i] = [node, vertex]
+                adj_list[vertex].remove(node)
+                if node not in self.adjacency_list[vertex]:
+                    print('PAS BON')
+                i += 1
+
+        return edges
 
     def floyd_warshall(self):
         """

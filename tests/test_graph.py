@@ -93,9 +93,28 @@ class TestGraph(unittest.TestCase):
         # for csv_file in os.listdir(RESOURCES_DIR):
         #     graph = Graph.read_edges(RESOURCES_DIR + csv_file)
 
-    def test_display_graph(self):
+    def test_write_graph(self):
         graph = Graph.read_edges(RESOURCES_DIR + "twitchDE.csv")
         graph.write_graph('data/plots/twitchDE.png')
 
+    def test_get_edges(self):
+        empty_graph = Graph()
+        self.assertEqual(empty_graph.get_edges(), [])
+
+        graph = Graph.read_edges(RESOURCES_DIR + "twitchDE.csv")
+        print(9206 in graph.adjacency_list[0])
+        print(0 in graph.adjacency_list[9206])
+        tmp = graph.get_edges()
+        print(9206 in graph.adjacency_list[0])
+        print(0 in graph.adjacency_list[9206])
+        for edges in graph.get_edges():
+            print(f"{edges[0]}, {edges[1]}")
+            #print(f"{graph.adjacency_list[edges[0]]}")
+            #print(f"{graph.adjacency_list[edges[1]]}")
+
+            self.assertTrue(edges[1] in graph.adjacency_list[edges[0]])
+            self.assertTrue(edges[0] in graph.adjacency_list[edges[1]])
+
 if  __name__ == '__main__':
     unittest.main()
+
