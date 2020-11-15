@@ -289,7 +289,7 @@ class Graph:
 
         return Graph(adjacency_list)
 
-    def write_graph(self, filepath: str):
+    def write_plot(self, filepath: str):
         """
         Creates a PNG file containing the plot representing
         the repartition of degrees in the graph

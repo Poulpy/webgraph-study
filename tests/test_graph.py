@@ -94,9 +94,9 @@ class TestGraph(unittest.TestCase):
         # for csv_file in os.listdir(RESOURCES_DIR):
         #     graph = Graph.read_edges(RESOURCES_DIR + csv_file)
 
-    def test_write_graph(self):
+    def test_write_plot(self):
         graph = Graph.read_edges(RESOURCES_DIR + "twitchDE.csv")
-        graph.write_graph('data/plots/twitchDE.png')
+        graph.write_plot('data/plots/twitchDE.png')
 
     def test_get_edges(self):
         empty_graph = Graph()

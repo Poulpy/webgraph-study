@@ -4,6 +4,7 @@ from graph import Graph
 
 DATA_DIR = "data/"
 PLOTS_DIR = DATA_DIR + "plots/"
+TABLES_DIR = DATA_DIR + "tables/"
 RESOURCES_DIR = "resources/"
 DEFAULT_VERTICE_COUNT = 1000
 
@@ -18,7 +19,8 @@ def generate_barabasi_albert_graph(vertice_count):
 def generate_plot(filepath: str):
     graph = Graph.read_edges(filepath)
     filename = os.path.splitext(os.path.basename(filepath))[0] + '.png'
-    graph.write_graph(PLOTS_DIR + filename)
+    graph.write_plot(PLOTS_DIR + filename)
+    graph.generate_table_parameters(TABLES_DIR + filename)
 
 if __name__ == "__main__":
     if len(sys.argv) >= 2:
@@ -35,3 +37,5 @@ if __name__ == "__main__":
 
         elif sys.argv[1] == "plot":
             generate_plot(sys.argv[2])
+
+
