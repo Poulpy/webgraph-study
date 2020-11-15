@@ -316,8 +316,6 @@ class Graph:
                 ['Degré moyen', "{0:.2f}".format(self.average_degree())]
         ]
 
-        print(table_data)
-
         table = ax.table(cellText=table_data, loc='center')
         table.set_fontsize(14)
         table.scale(1, 4)
