@@ -138,6 +138,7 @@ class Graph:
                 probability = degree / sum_of_degrees
                 if random.random() < probability:
                     adjacency_list[j].append(node)
+                    adjacency_list[node].append(j)
 
         return Graph(adjacency_list)
 
