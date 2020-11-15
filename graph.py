@@ -235,7 +235,9 @@ class Graph:
 
         Exception: file or path incorrect
         """
-        pass
+        with open(filepath, 'w') as file:
+            for edges in self.get_edges():
+                file.write(f"{edges[0]},{edges[1]}\n")
 
 
     def write(self, filepath: str):
