@@ -106,7 +106,7 @@ class Graph:
         edge_appearance_probability = 0.5
 
         for i in range(vertice_count):
-            for j in range(i):
+            for j in range(i + 1, vertice_count):
                 if random.random() < edge_appearance_probability:
                     adjacency_list[i].append(j)
                     adjacency_list[j].append(i)
