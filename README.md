@@ -1,5 +1,7 @@
 # Webgraph study
 
+![](data/plots/twitchDE.png)
+
 The goal is to calculate parameters for certain graphs :
 
 - barabasi-albert graphs
